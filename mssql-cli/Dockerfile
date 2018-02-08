@@ -1,10 +1,9 @@
-#FROM ubuntu:latest
-FROM python:3-slim-stretch
+FROM ubuntu:latest
+#FROM python:3-slim-stretch
 RUN apt-get update && apt-get install -y \ 
     libunwind8 \
-#    python \
-#    python-pip \
-    libicu57 \
+    python python-pip libicu55 \
+#    libicu57 \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip \
     && pip install mssql-cli
