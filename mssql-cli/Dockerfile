@@ -7,4 +7,4 @@ RUN apt-get update && apt-get install -y \
     libicu57 \
     && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip \
-    && pip install mssql-scripter
+    && pip install mssql-cli

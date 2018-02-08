@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mssql:
+    image: ericskang/unittestdb:latest
+    container_name: mssql
+    ports: 
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "SqlDevOps2017"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+  mssql-cli:
+    image: microsoft/mssql-cli:latest
+    container_name: mssql-cli
+    command: ["tail", "-f", "/dev/null"]
+  mssql-tools:
+    image: microsoft/mssql-tools
+    container_name: mssql-tools
+    command: ["tail", "-f", "/dev/null"]
+  mssql-scripter:
+    image: microsoft/mssql-scripter
+    container_name: mssql-scripter
+    command: ["tail", "-f", "/dev/null"]
+  mssql-all-tools:
+    image: microsoft/mssql-all-tools
+    container_name: mssql-all
+    command: ["tail", "-f", "/dev/null"]
+  
