@@ -3,26 +3,16 @@
 docker-compose up -d
 
 docker exec -ti mssql-tools sh
-export PATH=/opt/mssql-tools/bin:$PATH
-sqlcmd -Smssql -Usa -PSqlDevOps2017 \
--Q "CREATE DATABASE testdb GO 
-USE testdb
-GO
-CREATE TABLE test_table (col1 int); GO
-Insert into test_table(col1) Values (1),(2),(3); 
-SELECT * from test_table;"
+export PATH=/opt/mssql-tools/bin:$PATH \
+    && curl https://raw.githubusercontent.com/erickangMSFT/cli-docker/master/test.sql | tee -i test.sql \
+    && sqlcmd -Smssql -Usa -PSqlDevOps2017 -i test.sql
 exit
 
 
 docker exec -ti mssql-cli sh
-export MSSQL_CLI_USER=sa
-export MSSQL_CLI_PASSWORD=SqlDevOps2017
-export MSSQL_CLI_SERVER=mssql
+export MSSQL_CLI_USER=sa MSSQL_CLI_PASSWORD=SqlDevOps2017 MSSQL_CLI_SERVER=mssql
 mssql-cli
-CREATE DATABASE testdb;
 USE testdb;
-CREATE TABLE test_table (col1 int);
-Insert into test_table(col1) Values (1),(2),(3);
 SELECT * from test_table;
 quit
 exit
@@ -32,26 +22,10 @@ mssql-scripter -Smssql -dtestdb -Usa -PSqlDevOps2017
 exit
 
 docker exec -ti sqlpackage \
-bash -c "sqlpackage /a:Extract /ssn:mssql /su:sa /sp:SqlDevOps2017 /sdn:testdb /tf:testdb.dacpac"
-
-
-
-
-
-
-docker exec -ti mssql-all sh
-export MSSQL_CLI_USER=sa
-export MSSQL_CLI_PASSWORD=SqlDevOps2017
-export MSSQL_CLI_SERVER=mssql
-mssql-cli
-CREATE DATABASE testdb;
-USE testdb;
-CREATE TABLE test_table (col1 int);
-Insert into test_table(col1) Values (1),(2),(3);
-SELECT * from test_table;
-quit
-
-mssql-scripter -Smssql -dtestdb -Usa -PSqlDevOps2017 --schema-and-data
-exit
+    sh -c "sqlpackage /a:Extract /ssn:mssql /su:sa /sp:SqlDevOps2017 /sdn:testdb /tf:testdb.dacpac"
+docker exec -ti sqlpackage \
+    sh -c "sqlpackage /a:Publish /sf:testdb.dacpac /tsn:mssql /tdn:sqlpackagedb /tu:sa /tp:SqlDevOps2017"
+docker exec -ti mssql-tools \
+    sh -c "export PATH=/opt/mssql-tools/bin:$PATH && sqlcmd -Smssql -Usa -PSqlDevOps2017 -Q \"select name from sys.databases\""
 
 docker-compose down
