@@ -10,7 +10,7 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_PID: Developer
   mssql-cli:
-    image: microsoft/mssql-cli:latest
+    image: microsoft/sqltools:cli
     container_name: mssql-cli
     command: ["tail", "-f", "/dev/null"]
   mssql-tools:
@@ -18,11 +18,11 @@ services:
     container_name: mssql-tools
     command: ["tail", "-f", "/dev/null"]
   mssql-scripter:
-    image: microsoft/mssql-scripter
+    image: microsoft/sqltools:scripter
     container_name: mssql-scripter
     command: ["tail", "-f", "/dev/null"]
   mssql-all-tools:
-    image: microsoft/mssql-all-tools
+    image: microsoft/sqltools:all
     container_name: mssql-all
     command: ["tail", "-f", "/dev/null"]
   

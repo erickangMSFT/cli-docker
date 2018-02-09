@@ -6,7 +6,7 @@ export MSSQL_CLI_PASSWORD=SqlDevOps2017
 export MSSQL_CLI_SERVER=mssql
 mssql-cli
 use WideWorldImporters;
-select * from INFORMATION_SCHEMA.Tables where table_name=N'People';
+select top 3 * from INFORMATION_SCHEMA.Tables;
 quit
 exit
 
