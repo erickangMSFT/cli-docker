@@ -14,7 +14,7 @@ services:
     container_name: mssql-cli
     command: ["tail", "-f", "/dev/null"]
   mssql-tools:
-    image: ericskang/mssql-tools
+    image: microsoft/mssql-tools
     container_name: mssql-tools
     command: ["tail", "-f", "/dev/null"]
   mssql-scripter:
