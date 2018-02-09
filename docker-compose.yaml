@@ -25,4 +25,8 @@ services:
     image: microsoft/sqltools:all
     container_name: mssql-all
     command: ["tail", "-f", "/dev/null"]
+  sqlpackage:
+    image: ericskang/sqltools:sqlpackage
+    container_name: sqlpackage
+    command: ["tail", "-f", "/dev/null"]
   
