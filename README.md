@@ -34,8 +34,39 @@
     ```
 4. Run demo in mssql-cli prompt
     ```sql
-    
+    \?
+    --list all databases
+    \ld
 
+    use WideWorldImporters; --change database
+    
+    --list all schema
+    \ls 
+    q
+    
+    --list all tables with partial word search for 'peop'
+    \lt peop
+
+    -- request: please add \lsp to list stored procedure
+
+    -- open file into mssql-cli
+    \e
+
+    CTRL + R to search previously exected queries.
+
+    F3 to enable multiline query
+
+    select top 3 * from sys.databases
+    where name like %wide%;
+
+    -- 1. Join suggestion for tables and columns
+    select top 3 * from "Application"."People" p
+    join -- show join suggestion here
+
+    --2. Join suggestion for columns
+    select top 3 * from "Application"."People" p
+    join "Sales"."Customers" c on -- show join suggestion here
+    q
     ```
 
 ## Build SQL CLI Tools Docker images: DIY
