@@ -6,6 +6,9 @@ docker-compose -f insider.yaml up -d
 # Demo
 docker-compose -f demo.yaml up -d
 
+# Simple Demo
+docker-compose -f sqlbits.yaml up -d
+
 # Official Release (TBD)
 docker-compose -f release.yaml up -d
 
